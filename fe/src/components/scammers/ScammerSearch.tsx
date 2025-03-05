@@ -26,6 +26,8 @@ interface ReportItem {
     username: string;
     email?: string;
   };
+  name?: string; // Made optional with ?
+  company?: string; // Made optional with ?
   scamType: string;
   notes: string;
   createdAt: string;
@@ -87,13 +89,6 @@ export const ScammerSearch: React.FC = () => {
                   )}
                 </div>
 
-                <p className="text-sm text-gray-700 mt-1">
-                  <strong>Name:</strong> {report.name}
-                </p>
-                <p className="text-sm text-gray-700">
-                  <strong>Company:</strong> {report.company}
-                </p>
-
                 {/* Report summary */}
                 <div className="mt-4 border-t border-red-200 pt-3">
                   <h4 className="font-medium text-red-800 mb-2">
@@ -125,6 +120,14 @@ export const ScammerSearch: React.FC = () => {
                             <AccordionContent>
                               <div className="pl-4 py-2 space-y-1">
                                 <p className="text-sm">
+                                  <strong>Name:</strong>{" "}
+                                  {reportItem.name || "N/A"}
+                                </p>
+                                <p className="text-sm">
+                                  <strong>Company:</strong>{" "}
+                                  {reportItem.company || "N/A"}
+                                </p>
+                                <p className="text-sm">
                                   <strong>Type:</strong> {reportItem.scamType}
                                 </p>
                                 <p className="text-sm">
@@ -140,6 +143,14 @@ export const ScammerSearch: React.FC = () => {
                   ) : (
                     // Single report view
                     <div className="space-y-1">
+                      <p className="text-sm">
+                        <strong>Name:</strong>{" "}
+                        {report.reports[0]?.name || "N/A"}
+                      </p>
+                      <p className="text-sm">
+                        <strong>Company:</strong>{" "}
+                        {report.reports[0]?.company || "N/A"}
+                      </p>
                       <p className="text-sm">
                         <strong>Reported by:</strong>{" "}
                         {report.reports[0]?.reportedBy?.username || "Anonymous"}

@@ -23,8 +23,7 @@ export interface ScammerSearchResponse {
         totalReports: number;
         firstReportedAt: string;
         lastReportedAt: string;
-        name?: string;
-        company?: string;
+
         reports: Array<{
             _id: string;
             reportedBy: {
@@ -33,6 +32,8 @@ export interface ScammerSearchResponse {
             };
             scamType: string;
             notes: string;
+            name?: string;
+            company?: string;
             createdAt: string;
         }>;
     } | null;
