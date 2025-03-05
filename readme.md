@@ -138,7 +138,7 @@ The authentication flow:
    ```
 
 2. Install dependencies
-    ```bash
+   ```bash
    npm install  
    ```
   
@@ -160,14 +160,14 @@ The authentication flow:
     ```
   
 4. Start the backend server
-    ```bash
+   ```bash
    npm run dev 
    ```
 
 ### FrontEnd Setup
 
 1. Navigate to the frontend directory
-    ```bash
+   ```bash
    cd ../fe 
    ```
 2. Install dependencies
@@ -184,14 +184,14 @@ The authentication flow:
     ```
 4. Start the frontend development server
     ```bash
-   npm run dev
+    npm run dev
     ```
 
 ## 🗄️ Database Model
 
 ### User Model
-    ```bash
-    interface IUser {
+```js
+interface IUser {
     _id: ObjectId;
     username: string;
     linkedinId: string;
@@ -199,18 +199,19 @@ The authentication flow:
     role: 'user' | 'admin';
     lastLogin?: Date;
     isActive: boolean;
-    }
-    ```
+}
+```
 
 ### Scammer Model
-    ```bash
-        interface IScammer {
+```js
+interface IScammer {
     _id: ObjectId;
     profileLink: string;
     name: string;
     company: string;
     reports: Array<{
-        reportedBy: ObjectId; // Reference to User
+        // Reference to User
+        reportedBy: ObjectId;
         scamType: string;
         notes: string;
         createdAt: Date;
@@ -218,8 +219,8 @@ The authentication flow:
     totalReports: number;
     firstReportedAt: Date;
     lastReportedAt: Date;
-    }
-    ```
+}
+```
 
 ## 🔄 API Routes
 
@@ -241,13 +242,13 @@ The authentication flow:
 
 The project includes Jest for testing backend functionality. To run tests:
 ```bash
-    cd be
-    npm test    
+cd be
+npm test    
  ```
- To run tests in watch mode:
+To run tests in watch mode:
 ```bash
- npm run test:watch
- ```
+npm run test:watch
+```
 
 ## 🔮 Future Enhancements
 
