@@ -224,7 +224,7 @@ export const ScammerSearch: React.FC = () => {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-2">
-          <Label htmlFor="profileLink">LinkedIn Profile URL to Check</Label>
+          <Label htmlFor="profileLink">LinkedIn Profile URL to check</Label>
           <div className="flex gap-2">
             <Input
               id="profileLink"
