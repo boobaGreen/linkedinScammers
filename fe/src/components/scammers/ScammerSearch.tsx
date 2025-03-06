@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -26,8 +27,8 @@ interface ReportItem {
     username: string;
     email?: string;
   };
-  name?: string; // Made optional with ?
-  company?: string; // Made optional with ?
+  name?: string;
+  company?: string;
   scamType: string;
   notes: string;
   createdAt: string;
@@ -38,8 +39,10 @@ export const ScammerSearch: React.FC = () => {
     useState<ScammerSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const { token } = useAuth();
+  const { isAuthenticated, token } = useAuth();
   const { toast } = useToast();
+  const navigate = useNavigate();
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -47,6 +50,20 @@ export const ScammerSearch: React.FC = () => {
   } = useForm<SearchFormData>();
 
   const onSubmit = async (data: SearchFormData) => {
+    if (!isAuthenticated) {
+      toast({
+        title: "Authentication Required",
+        description: "Please login to check profiles.",
+      });
+      navigate("/login", {
+        state: {
+          from: location.pathname,
+          searchQuery: data.profileLink,
+        },
+      });
+      return;
+    }
+
     setLoading(true);
     try {
       const result = await searchScammer(data.profileLink, token || "");
