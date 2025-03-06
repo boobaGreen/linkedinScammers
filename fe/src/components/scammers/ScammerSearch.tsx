@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -27,8 +27,8 @@ interface ReportItem {
     username: string;
     email?: string;
   };
-  name?: string;
-  company?: string;
+  name?: string; // Made optional with ?
+  company?: string; // Made optional with ?
   scamType: string;
   notes: string;
   createdAt: string;
@@ -38,11 +38,10 @@ export const ScammerSearch: React.FC = () => {
   const [searchResult, setSearchResult] =
     useState<ScammerSearchResponse | null>(null);
   const [loading, setLoading] = useState(false);
+  const [authError, setAuthError] = useState<string | null>(null);
 
   const { isAuthenticated, token } = useAuth();
   const { toast } = useToast();
-  const navigate = useNavigate();
-  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -50,17 +49,12 @@ export const ScammerSearch: React.FC = () => {
   } = useForm<SearchFormData>();
 
   const onSubmit = async (data: SearchFormData) => {
+    // Clear any previous auth error
+    setAuthError(null);
+
+    // Check if user is authenticated
     if (!isAuthenticated) {
-      toast({
-        title: "Authentication Required",
-        description: "Please login to check profiles.",
-      });
-      navigate("/login", {
-        state: {
-          from: location.pathname,
-          searchQuery: data.profileLink,
-        },
-      });
+      setAuthError("Please login to check profiles");
       return;
     }
 
@@ -256,6 +250,14 @@ export const ScammerSearch: React.FC = () => {
           </div>
           {errors.profileLink && (
             <p className="text-sm text-red-500">{errors.profileLink.message}</p>
+          )}
+          {authError && (
+            <p className="text-sm text-red-500">
+              {authError}.{" "}
+              <Link to="/login" className="underline">
+                Login here
+              </Link>
+            </p>
           )}
         </div>
       </form>

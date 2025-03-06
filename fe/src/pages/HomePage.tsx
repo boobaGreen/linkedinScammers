@@ -71,7 +71,7 @@ const HomePage = () => {
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-destructive" />
+              <AlertTriangle className="h-5 w-5 text-destructive text-orange-500" />
               Report Scam
             </CardTitle>
             <CardDescription>
@@ -107,7 +107,7 @@ const HomePage = () => {
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-primary" />
+              <Shield className="h-5 w-5 text-primary text-blue-500" />
               Stay Protected
             </CardTitle>
             <CardDescription>
