@@ -239,6 +239,9 @@ The authentication flow:
 
 ## 🧪 Testing
 
+- Deployed App with some dummy data: [LinkedIn Scammer Blacklist](https://test-linkedin-scammers-fiav-bg2jg35gs-boobagreens-projects.vercel.app/)
+- Real APP to use : [LinkedIn Scammer Blacklist](httpshttps://https://www.linkedshield.eu/)
+
 The project includes Jest for testing backend functionality. To run tests:
 ```bash
     cd be
