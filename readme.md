@@ -84,6 +84,7 @@ The project is structured using a modern full-stack architecture:
 ## 📦 Technologies
 
 ### Frontend
+
 - React 19
 - TypeScript
 - Tailwind CSS
@@ -94,6 +95,7 @@ The project is structured using a modern full-stack architecture:
 - React Hook Form with Zod for validation
 
 ### Backend
+
 - Node.js
 - Express
 - TypeScript
@@ -114,6 +116,7 @@ The application uses LinkedIn OAuth2 for authentication, which offers several be
 4. **Profile Data**: Access to basic profile information
 
 The authentication flow:
+
 1. User clicks "Login with LinkedIn" button
 2. User is redirected to LinkedIn authentication page
 3. After authentication, LinkedIn redirects back to our callback URL
@@ -125,6 +128,7 @@ The authentication flow:
 ## 🚀 Getting Started
 
 ### Prerequisites
+
 - Node.js (v18 or higher)
 - MongoDB
 - LinkedIn Developer account (for OAuth credentials)
@@ -132,64 +136,70 @@ The authentication flow:
 ### Backend Setup
 
 1. Clone the repository
+
    ```bash
    git clone https://github.com/your-username/linkedin-scammer-blacklist.git
    cd linkedin-scammer-blacklist/be
    ```
 
 2. Install dependencies
-    ```bash
-   npm install  
+
+   ```bash
+   npm install
    ```
-  
+
 3. Create a .env file in the be directory:
-    ```bash
-    PORT=3005
-    MONGO_URI=your_mongodb_connection_string
-    JWT_SECRET=your_jwt_secret
-    JWT_EXPIRES_IN=30d
 
-    # LinkedIn OAuth
-    LINKEDIN_CLIENT_ID=your_linkedin_client_id
-    LINKEDIN_CLIENT_SECRET=your_linkedin_client_secret
-    LINKEDIN_CALLBACK_URL_DEV=http://localhost:3005/api/auth/linkedin/callback
-    LINKEDIN_CALLBACK_URL_PROD=https://your-production-url.com/api/auth/linkedin/callback
+   ```bash
+   PORT=3005
+   MONGO_URI=your_mongodb_connection_string
+   JWT_SECRET=your_jwt_secret
+   JWT_EXPIRES_IN=30d
 
-    FRONTEND_LOCAL_URL=http://localhost:5173
-    FRONTEND_PROD_URL=https://your-production-frontend-url.com
-    ```
-  
+   # LinkedIn OAuth
+   LINKEDIN_CLIENT_ID=your_linkedin_client_id
+   LINKEDIN_CLIENT_SECRET=your_linkedin_client_secret
+   LINKEDIN_CALLBACK_URL_DEV=http://localhost:3005/api/auth/linkedin/callback
+   LINKEDIN_CALLBACK_URL_PROD=https://your-production-url.com/api/auth/linkedin/callback
+
+   FRONTEND_LOCAL_URL=http://localhost:5173
+   FRONTEND_PROD_URL=https://your-production-frontend-url.com
+   ```
+
 4. Start the backend server
-    ```bash
-   npm run dev 
+   ```bash
+   npm run dev
    ```
 
 ### FrontEnd Setup
 
 1. Navigate to the frontend directory
-    ```bash
-   cd ../fe 
+   ```bash
+   cd ../fe
    ```
 2. Install dependencies
-    ```bash
+   ```bash
    npm install
-    ```
+   ```
 3. Create a .env file in the fe directory
-    ```bash
+
+   ```bash
    VITE_ENV_MODE=development
    # VITE_ENV_MODE=production
 
    VITE_PROD_SERVER_URL=https://your-production-backend-url.com
    VITE_LOCAL_SERVER_URL=http://localhost:3005
-    ```
+   ```
+
 4. Start the frontend development server
-    ```bash
+   ```bash
    npm run dev
-    ```
+   ```
 
 ## 🗄️ Database Model
 
 ### User Model
+
     ```bash
     interface IUser {
     _id: ObjectId;
@@ -203,6 +213,7 @@ The authentication flow:
     ```
 
 ### Scammer Model
+
     ```bash
         interface IScammer {
     _id: ObjectId;
@@ -224,14 +235,17 @@ The authentication flow:
 ## 🔄 API Routes
 
 ### Authentication Routes
+
 - GET /api/auth/linkedin: Initiates LinkedIn OAuth flow
 - GET /api/auth/linkedin/callback: LinkedIn OAuth callback
 - GET /api/auth/verify: Verifies JWT token validity
 
 ### User Routes
+
 - GET /api/users/me: Get current user profile
 
 ### Scammer Routes
+
 - GET /api/scammers: Get all scammer reports
 - POST /api/scammers: Create new scammer report
 - GET /api/scammers/search: Search for a specific LinkedIn profile
@@ -243,14 +257,17 @@ The authentication flow:
 - Real APP to use : [LinkedIn Scammer Blacklist](httpshttps://https://www.linkedshield.eu/)
 
 The project includes Jest for testing backend functionality. To run tests:
+
 ```bash
     cd be
-    npm test    
- ```
- To run tests in watch mode:
+    npm test
+```
+
+To run tests in watch mode:
+
 ```bash
  npm run test:watch
- ```
+```
 
 ## 🔮 Future Enhancements
 
@@ -262,6 +279,7 @@ The project includes Jest for testing backend functionality. To run tests:
 -Integration with LinkedIn messaging for real-time checks
 
 ## 📄 License
+
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-<p align="center"> <em>-Built to protect the LinkedIn community from scammers-</em> </p>
+<p align="center"> <em>Built to protect the LinkedIn community from scammers</em> </p>
