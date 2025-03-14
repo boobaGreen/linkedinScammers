@@ -9,7 +9,13 @@ import {
   CardDescription,
 } from "../../components/ui/card";
 import { Button } from "../../components/ui/button";
-import { Trash2, CalendarIcon, UserIcon } from "lucide-react";
+import {
+  Trash2,
+  CalendarIcon,
+  UserIcon,
+  LinkIcon,
+  AlertCircle,
+} from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -30,6 +36,43 @@ import {
 import { deleteReport } from "../../api/scammerApi";
 import { useToast } from "../../components/ui/use-toast";
 import { useAuth } from "../../hooks/useAuth";
+
+type BadgeColors = {
+  bg: string;
+  text: string;
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
+export const getScamTypeBadgeColors = (scamType: string): BadgeColors => {
+  switch (scamType) {
+    case "download-suspicios-repo":
+      return {
+        bg: "bg-purple-100",
+        text: "text-purple-800",
+      };
+    case "download-suspicios-software":
+      return {
+        bg: "bg-blue-100",
+        text: "text-blue-800",
+      };
+    case "investment-scam":
+      return {
+        bg: "bg-green-100",
+        text: "text-green-800",
+      };
+    case "romance-scam":
+      return {
+        bg: "bg-red-100",
+        text: "text-red-800",
+      };
+    case "other":
+    default:
+      return {
+        bg: "bg-gray-100",
+        text: "text-gray-800",
+      };
+  }
+};
 
 interface ScammerCardProps {
   scammer: ScammerResponse;
@@ -61,6 +104,10 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
 
   if (!primaryReport) return null; // Safety check
 
+  // Extract profile username from URL for display
+  const profileUsername =
+    scammer.profileLink.split("/in/")[1]?.split("/")[0] || "Unknown Profile";
+
   const handleDeleteReport = async () => {
     if (!token || !userReport) return;
 
@@ -74,7 +121,7 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
       });
 
       if (onReportDeleted) {
-        onReportDeleted(); // Aggiorna i dati nel componente genitore
+        onReportDeleted();
       }
     } catch (error) {
       console.error("Error deleting report:", error);
@@ -92,92 +139,121 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
     <Card className="h-full flex flex-col">
       <CardHeader>
         <div className="flex justify-between items-start">
-          <CardTitle className="text-lg">{primaryReport.name}</CardTitle>
-          <div className="flex items-center gap-2">
-            {hasMultipleReports && (
-              <span className="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">
+          <div>
+            <div className="flex items-center gap-2">
+              <LinkIcon size={16} className="text-amber-600" />
+              <CardTitle className="text-lg">
+                linkedin.com/in/{profileUsername}
+              </CardTitle>
+            </div>
+            <div className="flex items-center mt-1 gap-1">
+              <AlertCircle size={14} className="text-red-500" />
+              <CardDescription className="text-red-600 font-medium">
                 {scammer.reports.length} reports
-              </span>
-            )}
-
-            {/* Mostra il bottone di eliminazione solo se è un report dell'utente */}
-            {isUserReport && userReport && (
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="h-8 w-8 p-0 text-red-500 hover:bg-red-50"
-                  >
-                    <Trash2 size={16} />
-                    <span className="sr-only">Delete report</span>
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent className="bg-white">
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This will permanently delete your report about this
-                      LinkedIn profile. This action cannot be undone.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={handleDeleteReport}
-                      disabled={isDeleting}
-                      className="bg-red-500 hover:bg-red-600"
-                    >
-                      {isDeleting ? "Deleting..." : "Confirm Delete"}
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            )}
+              </CardDescription>
+            </div>
           </div>
+
+          {/* Show delete button only for user's own reports */}
+          {isUserReport && userReport && (
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 w-8 p-0 text-red-500 hover:bg-red-50"
+                >
+                  <Trash2 size={16} />
+                  <span className="sr-only">Delete report</span>
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent className="bg-white">
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This will permanently delete your report about this LinkedIn
+                    profile. This action cannot be undone.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleDeleteReport}
+                    disabled={isDeleting}
+                    className="bg-red-500 hover:bg-red-600"
+                  >
+                    {isDeleting ? "Deleting..." : "Confirm Delete"}
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          )}
         </div>
-        <CardDescription>{primaryReport.company}</CardDescription>
       </CardHeader>
 
       <CardContent className="flex-grow">
-        {/* Only show primary report details at top level when single report */}
-        {!hasMultipleReports ? (
-          <>
-            <p className="text-sm mb-2">{primaryReport.notes}</p>
-            <p className="text-sm text-muted-foreground mb-3">
-              Type: {primaryReport.scamType}
-            </p>
-          </>
-        ) : (
-          // For multiple reports, just show a brief summary
-          <p className="text-sm mb-3">
-            Multiple reports from different users. Check details below.
-          </p>
-        )}
+        {/* Show user's report or first report prominently */}
+        <div className="p-3 bg-gray-50 rounded-md mb-3">
+          <div className="flex justify-between">
+            <div className="font-medium mb-1">{primaryReport.name}</div>
+            <div className="text-sm text-muted-foreground">
+              {primaryReport.company}
+            </div>
+          </div>
+          <div className="text-sm">
+            <span
+              className={`inline-block px-2 py-0.5 ${
+                getScamTypeBadgeColors(primaryReport.scamType).bg
+              } ${
+                getScamTypeBadgeColors(primaryReport.scamType).text
+              } text-xs rounded-full mb-2`}
+            >
+              {primaryReport.scamType}
+            </span>
+            <p>{primaryReport.notes}</p>
+          </div>
+        </div>
 
-        {/* Show all reports if there are multiple */}
+        {/* Show all reports */}
         {hasMultipleReports && scammer.reports && (
           <Accordion type="single" collapsible className="mt-2">
             <AccordionItem value="reports">
-              <AccordionTrigger>View all reports</AccordionTrigger>
+              <AccordionTrigger>
+                View all {scammer.reports.length} reported identities
+              </AccordionTrigger>
               <AccordionContent>
                 {scammer.reports.map((report, index) => (
                   <div
                     key={report._id}
                     className={`py-2 ${index > 0 ? "border-t mt-2" : ""}`}
                   >
-                    <div className="flex items-center gap-2 mb-1">
+                    <div className="flex justify-between items-center mb-1">
+                      <div className="font-medium">{report.name}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {report.company}
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 mb-1 text-sm">
                       <UserIcon size={14} />
-                      <span className="text-sm font-medium">
+                      <span className="text-sm">
+                        Reported by:{" "}
                         {report.reportedBy?.username || "Unknown User"}
                       </span>
                     </div>
 
                     <p className="text-sm mb-1">
-                      <strong>Type:</strong> {report.scamType}
+                      <span
+                        className={`inline-block px-2 py-0.5 ${
+                          getScamTypeBadgeColors(report.scamType).bg
+                        } ${
+                          getScamTypeBadgeColors(report.scamType).text
+                        } text-xs rounded-full mr-2`}
+                      >
+                        {report.scamType}
+                      </span>
+                      "{report.notes}"
                     </p>
-
-                    <p className="text-sm mb-1">"{report.notes}"</p>
 
                     <div className="flex items-center gap-2">
                       <CalendarIcon size={14} />
@@ -194,7 +270,7 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
       </CardContent>
 
       <CardFooter>
-        <Button variant="outline" asChild className="w-full  hover:bg-amber-50">
+        <Button variant="outline" asChild className="w-full hover:bg-amber-50">
           <a
             href={
               scammer.profileLink.startsWith("http")

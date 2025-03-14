@@ -13,9 +13,7 @@ export const CommunityReportsSection: React.FC<
 > = ({ reports, loading, userId }) => {
   return (
     <>
-      <h2 className="text-2xl font-bold mt-12 mb-6">
-        Recent Reports from Community
-      </h2>
+      <h2 className="text-2xl font-bold mt-12 mb-6">Reports from Community</h2>
       {loading ? (
         <div className="border rounded-lg p-8 text-center">
           <p className="text-muted-foreground">Loading recent reports...</p>
