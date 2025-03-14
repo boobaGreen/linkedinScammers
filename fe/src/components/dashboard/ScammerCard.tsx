@@ -47,29 +47,29 @@ export const getScamTypeBadgeColors = (scamType: string): BadgeColors => {
   switch (scamType) {
     case "download-suspicios-repo":
       return {
-        bg: "bg-purple-100",
-        text: "text-purple-800",
+        bg: "bg-[color:var(--color-purple-light)] dark:bg-[color:var(--color-purple-light)]",
+        text: "text-[color:var(--color-purple-dark)] dark:text-[color:var(--color-purple-dark)]",
       };
     case "download-suspicios-software":
       return {
-        bg: "bg-blue-100",
-        text: "text-blue-800",
+        bg: "bg-[color:var(--color-blue-light)] dark:bg-[color:var(--color-blue-light)]",
+        text: "text-[color:var(--color-blue-dark)] dark:text-[color:var(--color-blue-dark)]",
       };
     case "investment-scam":
       return {
-        bg: "bg-green-100",
-        text: "text-green-800",
+        bg: "bg-[color:var(--color-green-light)] dark:bg-[color:var(--color-green-light)]",
+        text: "text-[color:var(--color-green-dark)] dark:text-[color:var(--color-green-dark)]",
       };
     case "romance-scam":
       return {
-        bg: "bg-red-100",
-        text: "text-red-800",
+        bg: "bg-[color:var(--color-red-light)] dark:bg-[color:var(--color-red-light)]",
+        text: "text-[color:var(--color-red-dark)] dark:text-[color:var(--color-red-dark)]",
       };
     case "other":
     default:
       return {
-        bg: "bg-gray-100",
-        text: "text-gray-800",
+        bg: "bg-[color:var(--color-gray-light)] dark:bg-[color:var(--color-gray-light)]",
+        text: "text-[color:var(--color-gray-dark)] dark:text-[color:var(--color-gray-dark)]",
       };
   }
 };
@@ -193,10 +193,12 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
 
       <CardContent className="flex-grow">
         {/* Show user's report or first report prominently */}
-        <div className="p-3 bg-gray-50 rounded-md mb-3">
+        <div className="p-3 bg-[color:var(--color-card)] dark:bg-[color:var(--color-card)] rounded-md mb-3">
           <div className="flex justify-between">
-            <div className="font-medium mb-1">{primaryReport.name}</div>
-            <div className="text-sm text-muted-foreground">
+            <div className="font-medium mb-1 text-[color:var(--color-card-foreground)]">
+              {primaryReport.name}
+            </div>
+            <div className="text-sm text-[color:var(--color-muted-foreground)]">
               {primaryReport.company}
             </div>
           </div>
@@ -210,7 +212,9 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
             >
               {primaryReport.scamType}
             </span>
-            <p>{primaryReport.notes}</p>
+            <p className="text-[color:var(--color-card-foreground)]">
+              {primaryReport.notes}
+            </p>
           </div>
         </div>
 
@@ -218,7 +222,7 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
         {hasMultipleReports && scammer.reports && (
           <Accordion type="single" collapsible className="mt-2">
             <AccordionItem value="reports">
-              <AccordionTrigger>
+              <AccordionTrigger className="text-[color:var(--color-card-foreground)]">
                 View all {scammer.reports.length} reported identities
               </AccordionTrigger>
               <AccordionContent>
@@ -228,21 +232,26 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
                     className={`py-2 ${index > 0 ? "border-t mt-2" : ""}`}
                   >
                     <div className="flex justify-between items-center mb-1">
-                      <div className="font-medium">{report.name}</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="font-medium text-[color:var(--color-card-foreground)]">
+                        {report.name}
+                      </div>
+                      <div className="text-sm text-[color:var(--color-muted-foreground)]">
                         {report.company}
                       </div>
                     </div>
 
                     <div className="flex items-center gap-2 mb-1 text-sm">
-                      <UserIcon size={14} />
-                      <span className="text-sm">
+                      <UserIcon
+                        size={14}
+                        className="text-[color:var(--color-muted-foreground)]"
+                      />
+                      <span className="text-sm text-[color:var(--color-muted-foreground)]">
                         Reported by:{" "}
                         {report.reportedBy?.username || "Unknown User"}
                       </span>
                     </div>
 
-                    <p className="text-sm mb-1">
+                    <p className="text-sm mb-1 text-[color:var(--color-card-foreground)]">
                       <span
                         className={`inline-block px-2 py-0.5 ${
                           getScamTypeBadgeColors(report.scamType).bg
@@ -256,8 +265,11 @@ export const ScammerCard: React.FC<ScammerCardProps> = ({
                     </p>
 
                     <div className="flex items-center gap-2">
-                      <CalendarIcon size={14} />
-                      <span className="text-xs text-muted-foreground">
+                      <CalendarIcon
+                        size={14}
+                        className="text-[color:var(--color-muted-foreground)]"
+                      />
+                      <span className="text-xs text-[color:var(--color-muted-foreground)]">
                         {new Date(report.createdAt).toLocaleDateString()}
                       </span>
                     </div>

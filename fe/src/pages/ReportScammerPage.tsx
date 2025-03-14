@@ -124,32 +124,35 @@ const ReportScammerPage: React.FC = () => {
 
   return (
     <div className="container mx-auto py-8 max-w-2xl">
-      <h1 className="text-3xl font-bold mb-6">Report a LinkedIn Scammer</h1>
+      <h1 className="text-3xl font-bold mb-6 text-[color:var(--color-foreground)]">
+        Report a LinkedIn Scammer
+      </h1>
 
-      <div className="bg-white p-6 rounded-lg shadow">
-        <p className="text-sm text-gray-500 mb-4">
+      <div className="bg-[color:var(--color-card)] border border-[color:var(--color-border)] p-6 rounded-lg">
+        <p className="text-sm text-[color:var(--color-muted-foreground)] mb-4">
           Fields marked with <span className="text-red-500">*</span> are
           required
         </p>
 
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            {/* Update each FormField with proper text colors */}
             <FormField
               control={form.control}
               name="profileLink"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabel className="text-[color:var(--color-foreground)]">
                     <RequiredLabel>LinkedIn Profile URL</RequiredLabel>
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="https://linkedin.com/in/username"
                       {...field}
-                      className="mt-2"
+                      className="mt-2 bg-[color:var(--color-background)] text-[color:var(--color-foreground)] border-[color:var(--color-border)]"
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-[color:var(--color-muted-foreground)]">
                     Copy the full URL of the scammer's LinkedIn profile
                   </FormDescription>
                   <FormMessage />
@@ -157,17 +160,20 @@ const ReportScammerPage: React.FC = () => {
               )}
             />
 
+            {/* Update other FormFields similarly */}
             <FormField
               control={form.control}
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Scammer's Name (optional)</FormLabel>
+                  <FormLabel className="text-[color:var(--color-foreground)]">
+                    Scammer's Name (optional)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Name shown on their profile"
                       {...field}
-                      className="mt-2"
+                      className="mt-2 bg-[color:var(--color-background)] text-[color:var(--color-foreground)] border-[color:var(--color-border)]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -180,12 +186,14 @@ const ReportScammerPage: React.FC = () => {
               name="company"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Company Name (optional)</FormLabel>
+                  <FormLabel className="text-[color:var(--color-foreground)]">
+                    Company Name (optional)
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="Company they claim to represent"
                       {...field}
-                      className="mt-2"
+                      className="mt-2 bg-[color:var(--color-background)] text-[color:var(--color-foreground)] border-[color:var(--color-border)]"
                     />
                   </FormControl>
                   <FormMessage />
@@ -198,7 +206,7 @@ const ReportScammerPage: React.FC = () => {
               name="scamType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabel className="text-[color:var(--color-foreground)]">
                     <RequiredLabel>Type of Scam</RequiredLabel>
                   </FormLabel>
                   <Select
@@ -206,22 +214,41 @@ const ReportScammerPage: React.FC = () => {
                     defaultValue={field.value}
                   >
                     <FormControl className="mt-2">
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-[color:var(--color-background)] text-[color:var(--color-foreground)] border-[color:var(--color-border)]">
                         <SelectValue placeholder="Select a type of scam" />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent className="bg-white border border-gray-200 shadow-md">
-                      <SelectItem value="download-suspicios-repo">
+                    <SelectContent className="bg-[color:var(--color-card)] border-[color:var(--color-border)]">
+                      <SelectItem
+                        value="download-suspicios-repo"
+                        className="text-[color:var(--color-foreground)]"
+                      >
                         Suspicious Repository Download
                       </SelectItem>
-                      <SelectItem value="download-suspicios-software">
+                      <SelectItem
+                        value="download-suspicios-software"
+                        className="text-[color:var(--color-foreground)]"
+                      >
                         Suspicious Software Download
                       </SelectItem>
-                      <SelectItem value="investment-scam">
+                      <SelectItem
+                        value="investment-scam"
+                        className="text-[color:var(--color-foreground)]"
+                      >
                         Investment Scam
                       </SelectItem>
-                      <SelectItem value="romance-scam">Romance Scam</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
+                      <SelectItem
+                        value="romance-scam"
+                        className="text-[color:var(--color-foreground)]"
+                      >
+                        Romance Scam
+                      </SelectItem>
+                      <SelectItem
+                        value="other"
+                        className="text-[color:var(--color-foreground)]"
+                      >
+                        Other
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -234,17 +261,17 @@ const ReportScammerPage: React.FC = () => {
               name="notes"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>
+                  <FormLabel className="text-[color:var(--color-foreground)]">
                     <RequiredLabel>Details</RequiredLabel>
                   </FormLabel>
                   <FormControl>
                     <Textarea
                       placeholder="Please describe how you identified this as a scam..."
-                      className="h-32 mt-2"
+                      className="h-32 mt-2 bg-[color:var(--color-background)] text-[color:var(--color-foreground)] border-[color:var(--color-border)]"
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription>
+                  <FormDescription className="text-[color:var(--color-muted-foreground)]">
                     Include any red flags, suspicious language, or other details
                   </FormDescription>
                   <FormMessage />
@@ -254,7 +281,7 @@ const ReportScammerPage: React.FC = () => {
 
             <Button
               type="submit"
-              className="w-full hover:bg-amber-50 border-1 hover:cursor-pointer"
+              className="w-full bg-[color:var(--color-primary)] text-[color:var(--color-primary-foreground)] hover:bg-[color:var(--color-primary-light)] dark:hover:bg-[color:var(--color-primary-dark)]"
             >
               Submit Report
             </Button>

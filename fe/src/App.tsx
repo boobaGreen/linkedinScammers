@@ -23,8 +23,10 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center h-screen bg-gray-100">
-        <div className="text-xl text-gray-700">Loading...</div>
+      <div className="flex items-center justify-center h-screen bg-[color:var(--color-background)]">
+        <div className="text-xl text-[color:var(--color-foreground)]">
+          Loading...
+        </div>
       </div>
     );
   }
@@ -38,7 +40,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 function App() {
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
+    <div className="flex flex-col min-h-screen bg-[color:var(--color-background)]">
       <NavBar />
       <main className="flex-grow container mx-auto px-4 py-8">
         <Routes>

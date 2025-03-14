@@ -1,3 +1,141 @@
 @import "tailwindcss";
 
+@theme {
+  /* Light theme (default) */
+  --color-primary: oklch(0.7 0.2 85); /* Amber color */
+  --color-primary-foreground: oklch(0.1 0.02 240);
 
+  --color-background: oklch(0.9856 0.0079 253.6109);
+  --color-foreground: oklch(0.1209 0.0516 241.5939);
+
+  /* Card colors - simplified from cs-mentor-ai */
+  --color-card: oklch(
+    0.9856 0.0079 253.6109
+  ); /* Same as background in light mode */
+  --color-card-foreground: oklch(0.1209 0.0516 241.5939);
+  --color-card-gradient: none; /* No gradient in light mode */
+
+  /* Card gradient colors for theming */
+  --color-card-red-gradient: transparent;
+  --color-card-green-gradient: transparent;
+  --color-card-amber-gradient: transparent;
+
+  --color-border: oklch(0.8514 0.0236 248.9729);
+
+  --color-input: oklch(0.8514 0.0236 248.9729);
+
+  --color-muted: oklch(0.8514 0.0236 248.9729);
+  --color-muted-foreground: oklch(0.5497 0.0177 252.9226);
+
+  /* Alert and action colors */
+  --color-destructive: oklch(0.6 0.25 25); /* Red */
+  --color-destructive-foreground: oklch(0.9856 0.0079 253.6109);
+
+  --color-success: oklch(0.65 0.15 140); /* Green */
+  --color-success-foreground: oklch(0.1 0.02 240);
+
+  /* Badge colors for scam types */
+  --color-purple-light: oklch(0.85 0.1 300);
+  --color-purple-dark: oklch(0.4 0.15 300);
+
+  --color-blue-light: oklch(0.85 0.1 250);
+  --color-blue-dark: oklch(0.4 0.15 250);
+
+  --color-green-light: oklch(0.85 0.1 140);
+  --color-green-dark: oklch(0.4 0.15 140);
+
+  --color-red-light: oklch(0.85 0.1 25);
+  --color-red-dark: oklch(0.4 0.15 25);
+
+  --color-gray-light: oklch(0.85 0.02 250);
+  --color-gray-dark: oklch(0.4 0.02 250);
+}
+
+.dark {
+  /* Dark theme */
+  --color-primary: oklch(0.65 0.18 85); /* Darker amber for dark theme */
+  --color-primary-foreground: oklch(0.9856 0.0079 253.6109);
+
+  --color-background: oklch(0.1209 0.0516 241.5939);
+  --color-foreground: oklch(0.9856 0.0079 253.6109);
+
+  /* Card colors for dark mode */
+  --color-card: oklch(0.1528 0.026 247.9569); /* From cs-mentor-ai */
+  --color-card-foreground: oklch(0.9856 0.0079 253.6109);
+  --color-card-gradient: linear-gradient(
+    to bottom right,
+    var(--color-card),
+    var(--color-card-dark)
+  );
+
+  /* Card gradient colors for dark mode */
+  --color-card-red-gradient: linear-gradient(to bottom right, #121212, #2c1313);
+  --color-card-green-gradient: linear-gradient(
+    to bottom right,
+    #121212,
+    #132c1b
+  );
+  --color-card-amber-gradient: linear-gradient(
+    to bottom right,
+    #121212,
+    #2c1f13
+  );
+
+  --color-border: oklch(0.2559 0.0275 250.7837);
+
+  --color-input: oklch(0.2559 0.0275 250.7837);
+
+  --color-muted: oklch(0.2559 0.0275 250.7837);
+  --color-muted-foreground: oklch(0.6828 0.0342 252.2548);
+
+  /* Alert and action colors (dark mode) */
+  --color-destructive: oklch(0.5 0.2 25); /* Darker red */
+  --color-destructive-foreground: oklch(0.9856 0.0079 253.6109);
+
+  --color-success: oklch(0.5 0.15 140); /* Darker green */
+  --color-success-foreground: oklch(0.9856 0.0079 253.6109);
+
+  /* Badge colors for dark mode */
+  --color-purple-light: oklch(0.25 0.1 300);
+  --color-purple-dark: oklch(0.8 0.15 300);
+
+  --color-blue-light: oklch(0.25 0.1 250);
+  --color-blue-dark: oklch(0.8 0.15 250);
+
+  --color-green-light: oklch(0.25 0.1 140);
+  --color-green-dark: oklch(0.8 0.15 140);
+
+  --color-red-light: oklch(0.25 0.1 25);
+  --color-red-dark: oklch(0.8 0.15 25);
+
+  --color-gray-light: oklch(0.25 0.02 250);
+  --color-gray-dark: oklch(0.8 0.02 250);
+}
+
+/* Smooth theme transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease,
+    border-color 0.3s ease;
+}
+
+/* Add these rules at the end */
+
+/* Reset margin/padding to avoid unwanted borders */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Force overflow to hidden to prevent scrollbars when not needed */
+body {
+  overflow-x: hidden;
+}

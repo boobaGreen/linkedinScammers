@@ -16,12 +16,13 @@ import {
   PlusCircle,
   List,
 } from "lucide-react";
+import { ThemeToggle } from "../ui/theme-toggle";
 
 const NavBar = () => {
   const { isAuthenticated, user, logout } = useAuth();
 
   return (
-    <nav className="sticky top-0 z-40 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <nav className="sticky top-0 z-40 w-full border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center px-4">
         <div className="mr-4 flex">
           <Link to="/" className="flex items-center space-x-2">
@@ -31,8 +32,11 @@ const NavBar = () => {
         </div>
 
         <div className="flex flex-1 items-center justify-end space-x-4">
+          {/* Add ThemeToggle before navigation items */}
+          <ThemeToggle />
+
           <nav className="hidden md:flex items-center space-x-4">
-            {/* ... Desktop navigation unchanged ... */}
+            {/* Existing navigation items */}
             <Link
               to="/"
               className="text-sm font-medium transition-colors hover:text-primary"
@@ -88,18 +92,20 @@ const NavBar = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
-                    className="w-56 bg-white border border-gray-200 shadow-md"
+                    className="w-56 bg-[color:var(--color-card)] border-[color:var(--color-border)] shadow-md"
                     align="end"
                     forceMount
                   >
                     <div className="flex items-center justify-start gap-2 p-2">
                       <div className="flex flex-col space-y-1 leading-none">
-                        <p className="font-medium">{user?.username}</p>
+                        <p className="font-medium text-[color:var(--color-card-foreground)]">
+                          {user?.username}
+                        </p>
                       </div>
                     </div>
                     <DropdownMenuItem
                       onClick={logout}
-                      className="cursor-pointer"
+                      className="cursor-pointer text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)] hover:text-[color:var(--color-card-foreground)]"
                     >
                       <LogOut className="mr-2 h-4 w-4" />
                       <span>Log out</span>
@@ -146,26 +152,43 @@ const NavBar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="bg-white border border-gray-200 shadow-md"
+                className="bg-[color:var(--color-card)] border-[color:var(--color-border)] shadow-md"
                 align="end"
               >
-                <DropdownMenuItem asChild>
+                <DropdownMenuItem
+                  asChild
+                  className="text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)]"
+                >
                   <Link to="/">Home</Link>
                 </DropdownMenuItem>
 
                 {isAuthenticated ? (
                   <>
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem
+                      asChild
+                      className="text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)]"
+                    >
                       <Link to="/dashboard">Dashboard</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem
+                      asChild
+                      className="text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)]"
+                    >
                       <Link to="/report">Report Scam</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={logout}>Logout</DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={logout}
+                      className="text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)]"
+                    >
+                      Logout
+                    </DropdownMenuItem>
                   </>
                 ) : (
                   <>
-                    <DropdownMenuItem asChild>
+                    <DropdownMenuItem
+                      asChild
+                      className="text-[color:var(--color-card-foreground)] hover:bg-[color:var(--color-muted)]"
+                    >
                       <Link to="/login">Login with LinkedIn</Link>
                     </DropdownMenuItem>
                   </>
