@@ -115,22 +115,22 @@ const HomePage = () => {
           </CardContent>
         </Card>
 
-        {/* Stay Protected Card - Amber accent */}
+        {/* Why LinkedShield Card - Amber accent */}
         <Card className="border-[color:var(--color-border)] bg-[color:var(--color-card)]">
           <div className="h-1.5 w-full bg-amber-500 rounded-t-md"></div>
           <CardHeader className="space-y-1 pt-5">
             <CardTitle className="flex items-center gap-2 text-[color:var(--color-card-foreground)]">
               <Shield className="h-5 w-5 text-amber-500" />
-              Stay Protected
+              Why LinkedShield?
             </CardTitle>
             <CardDescription className="text-[color:var(--color-muted-foreground)]">
-              Learn to identify common scam patterns
+              A necessary parallel protection system
             </CardDescription>
           </CardHeader>
           <CardContent className="text-[color:var(--color-card-foreground)]">
             <p>
-              Access resources and tips on how to identify and avoid common
-              LinkedIn scams targeting job seekers.
+              LinkedIn's response to scammer reports can be slow. Our community
+              provides immediate alerts while official channels process reports.
             </p>
           </CardContent>
         </Card>
